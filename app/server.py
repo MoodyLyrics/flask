@@ -3,12 +3,7 @@ from wordnik import swagger, WordApi
 from sets import Set
 app = Flask(__name__)
 
-@app.route("/")
-def hello():
-    return render_template("hello.html")
-
-@app.route("/api/synonyms/<word>")
-def synonym(word):
+def get_synonyms(word):
     api_url = 'http://api.wordnik.com/v4'
     api_key = '495685498a8807c1d60070b8cd908c4dd54326674bcc6ddb9'
     client = swagger.ApiClient(api_key, api_url)
@@ -21,7 +16,15 @@ def synonym(word):
         if word_group.relationshipType in ['equivalent', 'synonym']: # just grab in equivalent and synonym
             set_words = set_words | Set(word_group.words) # union of words to prevent duplicates
 
-    return jsonify(data=list(set_words))
+    return list(set_words);
+
+@app.route("/")
+def hello():
+    return render_template("hello.html")
+
+@app.route("/api/synonyms/<word>")
+def synonym(word):
+    return jsonify(data=get_synonyms(word))
 
 
 if __name__ == "__main__":

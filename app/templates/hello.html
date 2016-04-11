@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8">
+    <title>Flask React</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='scripts/css/hello.css') }}">
+  </head>
+  <body>
+    <div class="container">
+      <h1>MoodyLyrics</h1>
+      <br>
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <div class="input-group">
+            <input type="text" class="form-control" id="input-word" placeholder="How are you feeling today?">
+            <span class="input-group-btn">
+              <button class="btn btn-default" id="search-button" type="button">Search for songs!</button>
+            </span>
+          </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
+      </div><!-- /.row -->
+      
+      <h3>Or pick a mood</h3>
+      <div class="row" id="mood-buttons">
+      </div>
+    
+    <div class="row" id="related-words">
+    </div>
+
+    </div>
+    <!-- scripts -->
+    <script src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bower_components/underscore/underscore.js') }}"></script>
+    <script src="{{ url_for('static', filename='bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/js/hello.js') }}"></script>
+  </body>
+</html>

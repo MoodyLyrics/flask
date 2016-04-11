@@ -60,3 +60,7 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+#frontend
+node_modules/
+app/static/bower_components/

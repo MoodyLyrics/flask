@@ -1,7 +1,7 @@
 # flask
 
 ```
-$ pip install Flask
-$ python hello.py
+$ pip install requirements.txt
+$ python app/server.py
  * Running on http://localhost:5000/
  ```

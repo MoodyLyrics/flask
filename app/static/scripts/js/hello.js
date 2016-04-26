@@ -16,7 +16,7 @@ function searchRelatedWords(word) {
       $.each(res.data, function (key, val) {
         relatedWords.push(val);
       });
-      $.getJSON("https://192.241.182.160:9200/songs/lyrics/_search?q=" + relatedWords.join(","),
+      $.getJSON("192.241.182.160:9200/songs/lyrics/_search?q=" + relatedWords.join(","),
        function (res) {
         // console.log(res);
         var trContainer;

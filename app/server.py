@@ -18,6 +18,20 @@ def get_synonyms(word):
 
     return list(set_words);
 
+
+# def get_songs(words):
+#     api_url = 'http://192.241.182.160:9200/songs/lyrics/_search?q='
+#     word_api = WordApi.WordApi(client)
+#     related_words = word_api.getRelatedWords(word, limitPerRelationshipType=100)
+
+#     set_words = Set([word]) # initialize the set of words
+    
+#     for word_group in related_words:
+#         if word_group.relationshipType in ['equivalent', 'synonym']: # just grab in equivalent and synonym
+#             set_words = set_words | Set(word_group.words) # union of words to prevent duplicates
+
+#     return list(set_words);
+
 @app.route("/")
 def hello():
     return render_template("hello.html")
@@ -25,6 +39,10 @@ def hello():
 @app.route("/api/synonyms/<word>")
 def synonym(word):
     return jsonify(data=get_synonyms(word))
+
+# @app.route("/api/songs/<words>")
+# def songs(words):
+#     return jsonify(data=get_songs(words))
 
 
 if __name__ == "__main__":

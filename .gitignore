@@ -63,4 +63,4 @@ target/
 
 #frontend
 node_modules/
-app/static/bower_components/
+#app/static/bower_components/

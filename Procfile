@@ -1,1 +1,1 @@
-sh run.sh
+python app/server.py

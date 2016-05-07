@@ -70,6 +70,10 @@ function searchRelatedWords(word) {
                                   '<tbody>' + tbodyContainer + '</tbody>'
                                     )
         }
+      })
+      .error(function(error) {
+        clearInterval(intervalBeep);
+        queryWordElem.html('<h3>Something went terribly wrong. If you are a CS 410 grader, please contact htheodore@gmail.com.</h3>');
       });
 
     });

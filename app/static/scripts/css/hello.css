@@ -2,3 +2,22 @@
   margin-left: 10px;
   margin-bottom: 10px;
 }
+
+.mood-header {
+  position: relative;
+}
+
+#refresh-mood {
+  position: absolute;
+  right:    0;
+  bottom:   0;
+  margin-bottom: 10px;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: 300;
+}
+
+strong {
+  font-weight: 900;
+}

@@ -2,7 +2,7 @@
 <html>
   <head lang="en">
     <meta charset="UTF-8">
-    <title>Flask React</title>
+    <title>MoodyLyrics</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- styles -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
@@ -17,16 +17,30 @@
           <div class="input-group">
             <input type="text" class="form-control" id="input-word" placeholder="How are you feeling today?">
             <span class="input-group-btn">
-              <button class="btn btn-default" id="search-button" type="button">Search for songs!</button>
+              <button class="btn btn-success" id="search-button" type="button">Search for songs!</button>
             </span>
           </div><!-- /input-group -->
         </div><!-- /.col-lg-6 -->
       </div><!-- /.row -->
       
-      <h3>Or pick a mood</h3>
+      <div class="row mood-header">
+        <div class="col-sm-12">
+          <h3>Or pick a mood</h3>
+          <button class="pull-right btn btn-primary" id="refresh-mood">Refresh mood buttons</button>
+        </div>
+      </div>
       <div class="row" id="mood-buttons">
       </div>
-    
+
+      <div class="row" id="refresh-words">
+
+      </div>
+
+    <div class="row">
+      <div id="query-word">
+      </div>
+    </div>
+
     <div class="row" id="related-songs">
     </div>
 

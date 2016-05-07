@@ -3,14 +3,36 @@ var moodButtons = "";
 var numberOfMoods = 20;
 var relatedWords = [];
 var relatedSongsElem = $("#related-songs");
+var queryWordElem = $("#query-word");
 var tableHtml = "";
-_.sample(moods, numberOfMoods).forEach(function (mood) {
-    moodButtons += '<button type="button" class="btn btn-default btn-lg btn-mood">' + mood + '</button>';
-});
-$("#mood-buttons").html(moodButtons);
+var sliceBeep = 0;
+var beeps = ["beep ", "boop ", "bop", ".", ".", "."];
+var intervalBeep;
+
+function initMoodButtons() {
+  $("#mood-buttons").empty();
+  moodButtons = "";
+  _.sample(moods, numberOfMoods).forEach(function (mood) {
+      moodButtons += '<button type="button" class="btn btn-default btn-lg btn-mood">' + mood + '</button>';
+  });
+  $("#mood-buttons").html(moodButtons);
+  $(".btn-mood").on("click", function (event) {
+    var buttonElem = $(event.target);
+    searchRelatedWords(buttonElem.text());
+  });
+}
+
+
 
 function searchRelatedWords(word) {
-    $("#related-words").html('');
+    intervalBeep = setInterval( function() {
+      sliceBeep++;
+      if (sliceBeep > beeps.length) {
+        sliceBeep = 0;
+      }
+      queryWordElem.html("<h3>" + beeps.slice(0, sliceBeep).join("") + "</h3>");
+    }, 300);
+
     relatedWords = [];
     $.getJSON("api/synonyms/" + word, function (res) {
       $.each(res.data, function (key, val) {
@@ -18,11 +40,12 @@ function searchRelatedWords(word) {
       });
       $.getJSON("192.241.182.160:9200/songs/lyrics/_search?q=" + relatedWords.join(","),
        function (res) {
-        // console.log(res);
+        clearInterval(intervalBeep);
+        sliceBeep = 0;
         var trContainer;
         var tbodyContainer = "";
         if (res.length === 0) {
-          console.log("no result");
+          queryWordElem.html("<h3>Oops, there are no results for the query <strong>" + word + "</strong>, try another word.</h3>");
         } else {
           $.each(res.hits.hits, function(key, val) {
             var song = val._source;
@@ -33,6 +56,7 @@ function searchRelatedWords(word) {
                           "<td><a target='_blank' href='https://www.youtube.com/results?search_query=" + song.artist + " " + song.song + "'>Source</a></td>";
             tbodyContainer += "<tr>" + trContainer + "</tr>";
           });
+          queryWordElem.html('<h3>Results for <strong>' + word + "</strong>:</h3>");
           relatedSongsElem.html('<table class="table table-condensed">' +
                                   '<thead><tr>' + 
                                     '<th>Artist</th>' +
@@ -49,10 +73,23 @@ function searchRelatedWords(word) {
 }
 
 $("#search-button").on("click", function () {
-    searchRelatedWords($("#input-word").val());
+    var queryWordVal = $("#input-word").val();
+    if ( typeof queryWordVal === 'string' && queryWordVal.trim().length > 0){
+      searchRelatedWords(queryWordVal);
+    } else {
+      alert("Please type in a word in the input field.");
+    }
 });
 
-$(".btn-mood").on("click", function (event) {
-    var buttonElem = $(event.target);
-    searchRelatedWords(buttonElem.text());
+$("#refresh-mood").on("click", function () {
+  initMoodButtons();
 });
+
+$('body').on('keypress', 'input', function(args) {
+    if (args.keyCode == 13) {
+        $("#search-button").click();
+        return false;
+    }
+});
+
+initMoodButtons();

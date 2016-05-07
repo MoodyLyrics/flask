@@ -4,6 +4,14 @@ from wordnik import swagger, WordApi
 from sets import Set
 app = Flask(__name__)
 
+
+def isiterable(p_object):
+    try:
+        it = iter(p_object)
+    except TypeError: 
+        return False
+    return True
+
 def get_synonyms(word):
     api_url = 'http://api.wordnik.com/v4'
     api_key = '495685498a8807c1d60070b8cd908c4dd54326674bcc6ddb9'
@@ -12,10 +20,11 @@ def get_synonyms(word):
     related_words = word_api.getRelatedWords(word, limitPerRelationshipType=100)
 
     set_words = Set([word]) # initialize the set of words
-    
-    for word_group in related_words:
-        if word_group.relationshipType in ['equivalent', 'synonym']: # just grab in equivalent and synonym
-            set_words = set_words | Set(word_group.words) # union of words to prevent duplicates
+
+    if isiterable(related_words) :
+        for word_group in related_words:
+            if word_group.relationshipType in ['equivalent', 'synonym']: # just grab in equivalent and synonym
+                set_words = set_words | Set(word_group.words) # union of words to prevent duplicates
 
     return list(set_words);
 

@@ -37,11 +37,12 @@ function searchRelatedWords(word) {
     }, 300);
 
     relatedWords = [];
-    $.getJSON("api/synonyms/" + word, function (res) {
+    $.getJSON("api/synonyms/" + word.replace(/[ ,]+/g, ""), function (res) {
       $.each(res.data, function (key, val) {
         relatedWords.push(val);
       });
-      $.getJSON("http://45.55.137.47:9200/songs/lyrics/_search?q=" + relatedWords.join(","),
+
+      $.getJSON("http://45.55.137.47:9200/songs/lyrics/_search?q=" + relatedWords.join(",").replace(/[ ,]+/g, ","),
        function (res) {
         clearInterval(intervalBeep);
         sliceBeep = -1;

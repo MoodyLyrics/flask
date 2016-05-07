@@ -5,7 +5,7 @@ var relatedWords = [];
 var relatedSongsElem = $("#related-songs");
 var queryWordElem = $("#query-word");
 var tableHtml = "";
-var sliceBeep = 0;
+var sliceBeep = -1;
 var beeps = ["beep ", "boop ", "bop", ".", ".", "."];
 var intervalBeep;
 

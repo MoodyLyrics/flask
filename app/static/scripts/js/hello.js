@@ -25,6 +25,7 @@ function initMoodButtons() {
 
 
 function searchRelatedWords(word) {
+    clearInterval(intervalBeep);
     intervalBeep = setInterval( function() {
       sliceBeep++;
       if (sliceBeep > beeps.length) {

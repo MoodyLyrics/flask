@@ -44,7 +44,7 @@ function searchRelatedWords(word) {
       $.getJSON("http://45.55.137.47:9200/songs/lyrics/_search?q=" + relatedWords.join(","),
        function (res) {
         clearInterval(intervalBeep);
-        sliceBeep = 0;
+        sliceBeep = -1;
         var trContainer;
         var tbodyContainer = "";
         if (res.length === 0) {

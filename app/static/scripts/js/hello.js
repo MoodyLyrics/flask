@@ -26,12 +26,14 @@ function initMoodButtons() {
 
 function searchRelatedWords(word) {
     clearInterval(intervalBeep);
+    queryWordElem.html("");
+    relatedSongsElem.html("");
     intervalBeep = setInterval( function() {
       sliceBeep++;
       if (sliceBeep > beeps.length) {
         sliceBeep = 0;
       }
-      queryWordElem.html("<h3>" + beeps.slice(0, sliceBeep).join("") + "</h3>");
+      queryWordElem.html("<h3> Searching songs related to <strong>" + word + "</strong> <br/>" + beeps.slice(0, sliceBeep).join("") + "</h3>");
     }, 300);
 
     relatedWords = [];

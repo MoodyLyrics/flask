@@ -41,7 +41,7 @@ function searchRelatedWords(word) {
       $.each(res.data, function (key, val) {
         relatedWords.push(val);
       });
-      $.getJSON("http://192.241.182.160:9200/songs/lyrics/_search?q=" + relatedWords.join(","),
+      $.getJSON("http://45.55.137.47:9200/songs/lyrics/_search?q=" + relatedWords.join(","),
        function (res) {
         clearInterval(intervalBeep);
         sliceBeep = 0;
